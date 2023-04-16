@@ -1,70 +1,56 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import './App.css';
 
 function App() {
-  const [firstNumber, setFirstNumber] = useState("")
-  const [secondNumber, setSecondNumber] = useState("")
-  const [operation, setOperation] = useState("")
-  const [result, setResult] = useState(0)
+  const [result, setResult] = useState("")
 
-  const number = [1,2,3,4,5,6,7,8,9]
-  const operations = ["+","-","*","/"]
 
-  
-  const clickNumbers = (val) => {
-    if(operation === ""){
-      setFirstNumber(firstNumber + val)
-    } else {
-      setSecondNumber(secondNumber + val)
-    }
-  }
-  
-  const clickOperation = (val) => {
-    setOperation(val)
+  const handleClick = (e) => {
+    setResult(result.concat(e.target.name))
   }
 
-  const performOperation = () => {
-    switch(operation){
-      case "+":
-        setResult(Number(firstNumber) + Number(secondNumber))
-        break;
-      case "-":
-        setResult(Number(firstNumber) - Number(secondNumber))
-        break;
-      case "*":
-        setResult(Number(firstNumber) * Number(secondNumber))
-        break;
-      case "/":
-        setResult(Number(firstNumber) / Number(secondNumber))
-        break;
-        default: console.log("nothing")
+  const clear = () => {
+    setResult("")
+  }
+
+  const backspace = () => {
+    setResult(result.slice(0, -1))
+  }
+
+  const calculate = () => {
+    try {
+      setResult(eval(result).toString())
+    } catch {
+      // alert("error")
+      setResult("Error")
     }
   }
 
-  // useEffect(() => {
-  // console.log(result)
-  // },[result])
-  
+
   return (
-    <div className="App">
-      <div className="calculator">
-        <div className="display">{result}</div>
-        <div className="buttons">
-          <div className="leftSide">
-            <div id="seeResult" onClick={performOperation}>See Result</div>
-            <div className="numbers">
-              {number.map((val, key) => {
-               return <div id="individualNumber" onClick={() => clickNumbers(val)}>{val}</div>
-              })}
-          </div>
-        </div>
-          <div className="leftSide">
-            {operations.map((val,key) => {
-              return <div id="operations" onClick={() => clickOperation(val)}>{val}</div>
-            })}
-          </div>
-        </div>
+    <div className="calculator-grid">
+      <div className="output">
+        <div className="previous-operand"></div>
+        <div className="current-operand">{result}</div>
       </div>
+      <button onClick={clear} className="span-two">AC</button>
+      <button onClick={backspace}>DEL</button>
+      <button name="/" onClick={handleClick}>÷</button>
+      <button name="1" onClick={handleClick}>1</button>
+      <button name="2" onClick={handleClick}>2</button>
+      <button name="3" onClick={handleClick}>3</button>
+      <button name="*" onClick={handleClick}>*</button>
+      <button name="4" onClick={handleClick}>4</button>
+      <button name="5" onClick={handleClick}>5</button>
+      <button name="6" onClick={handleClick}>6</button>
+      <button name="+" onClick={handleClick}>+</button>
+      <button name="7" onClick={handleClick}>7</button>
+      <button name="8" onClick={handleClick}>8</button>
+      <button name="9" onClick={handleClick}>9</button>
+      <button name="-" onClick={handleClick}>-</button>
+      <button name="." onClick={handleClick}>.</button>
+      <button name="0" onClick={handleClick}>0</button>
+      <button onClick={calculate} className="span-two">=</button>
     </div>
   );
 }
