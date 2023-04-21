@@ -30,10 +30,9 @@ function App() {
   return (
     <div className="calculator-grid">
       <div className="output">
-        <div className="previous-operand"></div>
         <div className="current-operand">{result}</div>
       </div>
-      <button onClick={clear} className="span-two">AC</button>
+      <button onClick={clear} className="clear">AC</button>
       <button onClick={backspace}>DEL</button>
       <button name="/" onClick={handleClick}>÷</button>
       <button name="1" onClick={handleClick}>1</button>
@@ -50,7 +49,7 @@ function App() {
       <button name="-" onClick={handleClick}>-</button>
       <button name="." onClick={handleClick}>.</button>
       <button name="0" onClick={handleClick}>0</button>
-      <button onClick={calculate} className="span-two">=</button>
+      <button onClick={calculate} className="equal">=</button>
     </div>
   );
 }
